@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Display a marker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.1.0/ol.css">
+    <script src="https://cdn.jsdelivr.net/npm/ol@v10.1.0/dist/ol.js"></script>
+    <style>
+      #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+    </style>
+  </head>
+  
+  <body>
+
+    <div id="map">
+      <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;">
+        <img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo">
+      </a>
+    </div>
+
+    <div id=ajudaMsg style="position:absolute; top:10px; left:10px; z-index:1000; background: #fff; border: 1px solid #000; padding:10px; ">aaaaaa</div>
+
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+
+
+    <script>
+        const key = '0ILbW2i8qYLEGh9CF5gL';
+        const routAPI = 'http://localhost:8079';
+  /*
+
+    maptilersdk.config.apiKey = key;
+    const map = new maptilersdk.Map({
+      container: 'map', // container's id or the HTML element to render the map
+      style: maptilersdk.MapStyle.STREETS,
+      center: [-8.5, 41.3], // starting position [lng, lat]
+      zoom: 5, // starting zoom
+    });
+    const marker = new maptilersdk.Marker()
+      .setLngLat([-8.471609, 41.362187])  
+      .addTo(map);        
+*/
+
+maptilersdk.config.apiKey = key;
+    /*
+    var geojson = {
+        'type': 'FeatureCollection',
+        'features': [
+            {
+                'type': 'Feature',
+                'properties': {
+                    'message': 'Foo',
+                    'iconSize': [64, 64]
+                },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [-66.324462890625, -16.024695711685304]
+                }
+            },
+            {
+                'type': 'Feature',
+                'properties': {
+                    'message': 'Bar',
+                    'iconSize': [64, 64]
+                },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [-61.2158203125, -15.97189158092897]
+                }
+            },
+            {
+                'type': 'Feature',
+                'properties': {
+                    'message': 'Baz',
+                    'iconSize': [64, 64]
+                },
+                'geometry': {
+                    'type': 'Point',
+                    'coordinates': [-63.29223632812499, -18.28151823530889]
+                }
+            }
+        ]
+    };
+    */
+
+    var map = new maptilersdk.Map({
+        container: 'map',
+        style: maptilersdk.MapStyle.STREETS,
+        center: [-65.017, -16.457],
+        zoom: 5
+    });
+
+    function newcoordinates() {
+
+        // Função para carregar os dados via GET
+        fetch(routAPI + '/users/get_route_location')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar os dados da API');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Atualizar a variável geojson com os dados da API
+                //alert(data)
+                var geojson = data;
+
+                // Adicionar os marcadores ao mapa
+                geojson.features.forEach(function (marker) {
+                    // Criar um elemento DOM para o marcador
+                    var el = document.createElement('div');
+                    el.className = 'marker';
+                    el.style.backgroundImage = `url(location.png)`;
+                    el.style.width = marker.properties.iconSize[0] + 'px';
+                    el.style.height = marker.properties.iconSize[1] + 'px';
+
+                    el.addEventListener('click', function () {
+                        window.alert(marker.properties.message);
+                        let x = document.getElementById("ajudaMsg");
+                        x.innerHTML = marker.properties.message;
+                    });
+
+                    // Adicionar marcador ao mapa
+                    new maptilersdk.Marker({ element: el })
+                        .setLngLat(marker.geometry.coordinates)
+                        .addTo(map);
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os dados:', error);
+            }); 
+        }
+
+        const intervalo = 2000;
+        setInterval(newcoordinates, intervalo);
+    
+
+    </script>
+  </body>
+</html>
