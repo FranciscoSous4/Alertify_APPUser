@@ -5,6 +5,7 @@
     <title>Display a marker</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.1.0/ol.css">
     <script src="https://cdn.jsdelivr.net/npm/ol@v10.1.0/dist/ol.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
       #map {position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
     </style>
@@ -18,7 +19,7 @@
       </a>
     </div>
 
-    <div id=ajudaMsg style="position:absolute; top:10px; left:10px; z-index:1000; background: #fff; border: 1px solid #000; padding:10px; ">aaaaaa</div>
+    <div id=ajudaMsg style="position:absolute; top:10px; left:10px; z-index:1000; background: #fff; border: 1px solid #000; padding:10px; ">Rotas</div>
 
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
@@ -86,8 +87,8 @@ maptilersdk.config.apiKey = key;
     var map = new maptilersdk.Map({
         container: 'map',
         style: maptilersdk.MapStyle.STREETS,
-        center: [-65.017, -16.457],
-        zoom: 5
+        center: [-8.481917, 41.369111],
+        zoom: 15
     });
 
     function newcoordinates() {
@@ -113,6 +114,7 @@ maptilersdk.config.apiKey = key;
                     el.style.backgroundImage = `url(location.png)`;
                     el.style.width = marker.properties.iconSize[0] + 'px';
                     el.style.height = marker.properties.iconSize[1] + 'px';
+                    
 
                     el.addEventListener('click', function () {
                         window.alert(marker.properties.message);
@@ -131,7 +133,7 @@ maptilersdk.config.apiKey = key;
             }); 
         }
 
-        const intervalo = 2000;
+        const intervalo = 7000;
         setInterval(newcoordinates, intervalo);
     
 
