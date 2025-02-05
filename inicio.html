@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertify</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Link para o Font Awesome -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff; /* Fundo branco */
+            color: #b30000; /* Texto vermelho escuro */
+        }
+
+        h1 {
+            color: #b30000; /* Título em vermelho escuro */
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff; /* Texto branco */
+            background: linear-gradient(45deg, #ff4d4d, #b30000); /* Tons de vermelho */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Espaço entre os botões */
+        }
+
+        button:hover {
+            transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Realça a sombra */
+        }
+
+        button:active {
+            transform: scale(1); /* Volta ao tamanho normal ao clicar */
+            background: linear-gradient(45deg, #b30000, #ff4d4d); /* Inverta os tons */
+        }
+
+        .settings-btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #4d4d4d; /* Cor cinza escuro para o botão de configurações */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .settings-btn i {
+            margin-right: 8px; /* Espaço entre o ícone e o texto */
+        }
+
+        .settings-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .settings-btn:active {
+            transform: scale(1);
+            background-color: #333; /* Cor mais escura no clique */
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-vindo ao Alertify!</h1>
+    <!-- Botão para ir para o mapa -->
+    <button onclick="window.location.href='index.html'">Ir para o Mapa</button>
+
+    <!-- Botão para ir para as definições -->
+    <button class="settings-btn" onclick="window.location.href='definicoes.html'">
+        <i class="fas fa-cogs"></i> Definições
+    </button>
+</body>
+</html>
