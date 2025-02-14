@@ -1,90 +1,82 @@
-<style>
-    /* Estilos para a página */
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #fff; /* Fundo branco */
-        color: #b30000; /* Texto vermelho escuro */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        text-align: center;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre os Criadores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #b30000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
 
-    /* Estilos do título */
-    h1 {
-        color: #b30000; /* Vermelho escuro */
-        margin-bottom: 20px;
-    }
+        h1 {
+            color: #b30000;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
 
-    /* Caixa de conteúdo principal */
-    .content-box {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        width: 90%;
-        max-width: 400px;
-        margin: 0 auto;
-    }
+        p {
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 10px 20px;
+        }
 
-    /* Estilo dos rótulos */
-    label {
-        display: block;
-        font-size: 16px;
-        margin-bottom: 8px;
-        text-align: left;
-        color: #333;
-    }
+        .content-box {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+        }
 
-    /* Estilo dos checkboxes */
-    input[type="checkbox"] {
-        margin-right: 10px;
-    }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff4d4d, #b30000);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
 
-    /* Botões principais */
-    button {
-        padding: 15px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #fff; /* Texto branco */
-        background: linear-gradient(45deg, #ff4d4d, #b30000); /* Tons de vermelho */
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 100%; /* Botão com largura total */
-    }
-
-    /* Efeito de hover nos botões */
-    button:hover {
-        transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
-        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Realça a sombra */
-    }
-
-    /* Efeito de foco no botão */
-    button:focus {
-        outline: none;
-        border: 2px solid #ff4d4d;
-    }
-
-    /* Estilo do botão de "Voltar ao Início" */
-    .back-button {
-        background-color: #4CAF50; /* Cor verde para o botão de voltar */
-        margin-top: 10px;
-    }
-
-    /* Estilo do botão de "Salvar Preferências" */
-    .save-button {
-        background-color: #b30000; /* Cor vermelha */
-    }
-
-    /* Adicionando o fundo de um gradiente sutil para a página */
-    .content-box {
-        background: linear-gradient(to bottom, #ffffff, #f7f7f7);
-    }
-</style>
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="content-box">
+        <h1>Sobre os Criadores</h1>
+        <p>
+            Este site foi criado por uma equipe dedicada, composta por desenvolvedores com experiência em diversas tecnologias modernas.
+        </p>
+        <p>
+            <strong>Francisco Silva:</strong> Desenvolvedor Frontend responsável pelo design e pela criação da interface. Apaixonado por soluções visuais criativas e funcionais.
+        </p>
+        <p>
+            <strong>Maria Oliveira:</strong> Especialista em Backend, com foco na integração e segurança de APIs. Trabalhou para garantir que o sistema fosse estável e confiável.
+        </p>
+        <p>
+            <strong>João Mendes:</strong> Gerente de projeto e tester. Coordenou as tarefas e garantiu a qualidade final do produto.
+        </p>
+        <button onclick="window.location.href='index.html'">Voltar ao Início</button>
+    </div>
+</body>
+</html>
