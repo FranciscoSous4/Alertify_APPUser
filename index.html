@@ -1,141 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alertify</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.1.0/ol.css" />
     <script src="https://cdn.jsdelivr.net/npm/ol@v10.1.0/dist/ol.js"></script>
     <style>
-      #map {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-      }
-      #backButton, #dateButton {
-        position: absolute;
-        top: 10px;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-        z-index: 1000;
-      }
-      #backButton {
-        left: 10px;
-        background: #b30000;
-        color: white;
-      }
-      #backButton:hover {
-        background: #ff4d4d;
-      }
-      #dateButton {
-        left: 200px;
-        background: #0056b3;
-        color: white;
-      }
-      #dateButton:hover {
-        background: #4d94ff;
-      }
-      #dateMessage {
-        position: absolute;
-        top: 50px;
-        left: 10px;
-        z-index: 1000;
-        background: white;
-        padding: 10px;
-        border: 1px solid #000;
-        display: none;
-      }
+        #map {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        #backButton, #dateButton {
+            position: absolute;
+            top: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+        #backButton {
+            left: 10px;
+            background: #b30000;
+            color: white;
+        }
+        #backButton:hover {
+            background: #ff4d4d;
+        }
+        #dateButton {
+            left: 200px;
+            background: #0056b3;
+            color: white;
+        }
+        #dateButton:hover {
+            background: #4d94ff;
+        }
+        #dateMessage {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border: 1px solid #000;
+            display: none;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="map"></div>
-    <!-- Botão para voltar ao início -->
     <button id="backButton" onclick="window.location.href='inicio.html'">Voltar para o Início</button>
-    <!-- Botão para ver a data -->
     <button id="dateButton" onclick="fetchDate()">Última Localização</button>
-
-    <!-- Mensagem para mostrar a data -->
     <div id="dateMessage"></div>
 
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
 
     <script>
-      const apiKey = "0ILbW2i8qYLEGh9CF5gL"; // Sua chave do MapTiler
-      const routeAPI = "http://localhost:3000/last_location"; // URL do servidor para a última localização
-      const dateAPI = "http://localhost:3000/last_date"; // URL do servidor para a data
+        const apiKey = "0ILbW2i8qYLEGh9CF5gL"; 
+        const routeAPI = "https://14360.oficinaepina.com/last_location"; 
+        const dateAPI = "https://14360.oficinaepina.com/last_date";
 
-      // Configuração inicial do mapa
-      maptilersdk.config.apiKey = apiKey;
-      const map = new maptilersdk.Map({
-        container: "map",
-        style: maptilersdk.MapStyle.STREETS,
-        center: [-8.481917, 41.369111], // Centro inicial do mapa
-        zoom: 12,
-      });
+        maptilersdk.config.apiKey = apiKey;
+        const map = new maptilersdk.Map({
+            container: "map",
+            style: maptilersdk.MapStyle.STREETS,
+            center: [-8.481917, 41.369111],
+            zoom: 12,
+        });
 
-      let marker; // Variável para o marcador (reutilizável)
+        let marker;
 
-      // Função para adicionar ou atualizar o marcador no mapa
-      function addMarker(latitude, longitude, message) {
-        if (marker) {
-          // Remove o marcador anterior, se já existir
-          marker.remove();
+        function addMarker(latitude, longitude, message) {
+            if (marker) {
+                marker.remove();
+            }
+            marker = new maptilersdk.Marker()
+                .setLngLat([longitude, latitude])
+                .setPopup(new maptilersdk.Popup().setText(message || "O seu autocarro está aqui"))
+                .addTo(map);
+            map.setCenter([longitude, latitude]);
         }
 
-        // Adiciona o novo marcador
-        marker = new maptilersdk.Marker()
-          .setLngLat([longitude, latitude]) // Coordenadas do marcador
-          .setPopup(new maptilersdk.Popup().setText(message || "O seu autocarro está aqui")) // Mensagem ao clicar no marcador
-          .addTo(map);
+        function fetchLastLocation() {
+            fetch(routeAPI)
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.features && data.features.length > 0) {
+                        const feature = data.features[0];
+                        const [longitude, latitude] = feature.geometry.coordinates;
+                        const message = feature.properties.message;
+                        addMarker(latitude, longitude, message);
+                    } else {
+                        console.error("Nenhuma localização encontrada.");
+                    }
+                })
+                .catch((error) => console.error("Erro ao buscar última localização:", error));
+        }
 
-        // Centraliza o mapa na nova localização
-        map.setCenter([longitude, latitude]);
-      }
+        function fetchDate() {
+            fetch(dateAPI)
+                .then((response) => response.json())
+                .then((data) => {
+                    const date = data.cdate;
+                    const formattedDate = new Date(date).toLocaleString();
+                    document.getElementById('dateMessage').innerHTML = `Última atualização: ${formattedDate}`;
+                    document.getElementById('dateMessage').style.display = 'block';
+                })
+                .catch((error) => console.error("Erro ao buscar a data da última localização:", error));
+        }
 
-      // Função para buscar a última localização
-      function fetchLastLocation() {
-        fetch(routeAPI)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.features && data.features.length > 0) {
-              const feature = data.features[0]; // Pega a primeira (e única) localização
-              const [longitude, latitude] = feature.geometry.coordinates; // Coordenadas
-              const message = feature.properties.message; // Mensagem do GeoJSON
-
-              // Adiciona o marcador no mapa
-              addMarker(latitude, longitude, message);
-            } else {
-              console.error("Nenhuma localização encontrada.");
-            }
-          })
-          .catch((error) => console.error("Erro ao buscar última localização:", error));
-      }
-
-      // Função para pegar a data da última localização
-      function fetchDate() {
-        fetch(dateAPI)
-          .then((response) => response.json())
-          .then((data) => {
-            const date = data.cdate; // Data recebida do servidor
-            const formattedDate = new Date(date).toLocaleString(); // Formatar a data
-            document.getElementById('dateMessage').innerHTML = `Última atualização: ${formattedDate}`;
-            document.getElementById('dateMessage').style.display = 'block';
-          })
-          .catch((error) => console.error("Erro ao buscar a data da última localização:", error));
-      }
-
-      // Atualiza o marcador a cada 30 segundos
-      setInterval(fetchLastLocation, 30000);
-
-      // Busca a última localização ao carregar a página
-      fetchLastLocation();
+        setInterval(fetchLastLocation, 30000);
+        fetchLastLocation();
     </script>
-  </body>
+</body>
 </html>

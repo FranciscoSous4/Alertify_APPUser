@@ -14,72 +14,91 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #fff; /* Fundo branco */
-            color: #b30000; /* Texto vermelho escuro */
+            background-color: #fff;
+            color: #b30000;
+            text-align: center;
         }
 
-        h1 {
-            color: #b30000; /* Título em vermelho escuro */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #b30000;
+            padding: 10px 0;
+            gap: 20px;
         }
 
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff; /* Texto branco */
-            background: linear-gradient(45deg, #ff4d4d, #b30000); /* Tons de vermelho */
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Espaço entre os botões */
-        }
-
-        button:hover {
-            transform: scale(1.1); /* Aumenta o tamanho ao passar o mouse */
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Realça a sombra */
-        }
-
-        button:active {
-            transform: scale(1); /* Volta ao tamanho normal ao clicar */
-            background: linear-gradient(45deg, #b30000, #ff4d4d); /* Inverta os tons */
-        }
-
-        .settings-btn {
+        .header-btn {
             padding: 10px 20px;
             font-size: 18px;
-            color: #fff;
-            background-color: #4d4d4d; /* Cor cinza escuro para o botão de configurações */
-            border: none;
+            color: #fff; /* Texto branco */
+            background-color: #b30000; /* Fundo vermelho escuro */
+            border: 2px solid #fff; /* Borda branca para melhor contraste */
             border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: bold;
         }
 
-        .settings-btn i {
-            margin-right: 8px; /* Espaço entre o ícone e o texto */
+        .header-btn i {
+            margin-right: 8px;
         }
 
-        .settings-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        .header-btn:hover {
+            background-color: #ff4d4d; /* Efeito leve ao passar o mouse */
+            color: #fff;
         }
 
-        .settings-btn:active {
-            transform: scale(1);
-            background-color: #333; /* Cor mais escura no clique */
+        .main-message {
+            font-size: 28px;
+            font-weight: bold;
+            color: #b30000;
+            margin: 0;
+            padding: 20px;
+            background: none;
+            max-width: 80%;
+            text-transform: capitalize;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #b30000;
+            color: #fff;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1>Bem-vindo ao Alertify!</h1>
-    <!-- Botão para ir para o mapa -->
-    <button onclick="window.location.href='index.html'">Autocarro</button>
+    <header>
+        <button class="header-btn" onclick="window.location.href='index.html'">Autocarro</button>
+        <button class="header-btn" onclick="window.location.href='definicoes.html'">
+            <i class="fas fa-cogs"></i> Sobre Nós
+        </button>
+    </header>
 
-    <!-- Botão para ir para as definições -->
-    <button class="settings-btn" onclick="window.location.href='definicoes.html'">
-        <i class="fas fa-cogs"></i> Sobre Nós
-    </button>
+    <div class="main-message">
+        Olá, Seja Bem-vindo ao Alertify, onde o seu tempo é valioso!
+    </div>
+
+    <footer>
+        Criado por: Francisco Sousa & Luis Machado<br>
+        Contactos: <a href="mailto:a14360@oficina.pt">a14360@oficina.pt</a> | <a href="mailto:a14349@oficina.pt">a14349@oficina.pt</a>
+    </footer>
 </body>
 </html>
